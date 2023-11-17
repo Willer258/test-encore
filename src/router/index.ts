@@ -8,9 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'home',
     component: HomeView,
-    meta: {
-      requiredRoles: ['ROLE_USER',]
-    }
+    meta: {requiredRoles: ['ROLE_CUSTOMER']}
   },
   
   {
@@ -25,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
       }
     ],
     meta: {
-      requiredRoles: ['ROLE_USER',]
+      requiredRoles: ['ROLE_CUSTOMER']
     }
   },
   {

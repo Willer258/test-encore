@@ -31,18 +31,19 @@
                                 <b-form @submit="onSubmit" prevent="submit" class="d-flex flex-column ">
                                     <label class="sr-only" for="inline-form-input-name">Numero de telephone</label>
                                     <b-form-input v-model="loginData.username" type="tel" id="number"
-                                        class="mb-2 mr-sm-2 mb-sm-3" placeholder="Entrez votre numéro de téléphone"></b-form-input>
+                                        class="mb-2 mr-sm-2 mb-sm-3"
+                                        placeholder="Entrez votre numéro de téléphone"></b-form-input>
 
                                     <label class="sr-only" for="inline-form-input-username">Mot de passe</label>
                                     <b-input-group class="mb-2 mr-sm-2 mb-sm-4">
-                                        <b-form-input v-model="loginData.password" type="password"
-                                            id="password" placeholder="Entrez votre mot de passe"></b-form-input>
+                                        <b-form-input v-model="loginData.password" type="password" id="password"
+                                            placeholder="Entrez votre mot de passe"></b-form-input>
                                     </b-input-group>
 
                                     <!-- <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox> -->
 
-                                    <b-button type="submit" style="align-self: end" variant="primary"
-                                        class="w-50"> <span>Connexion</span>   </b-button>
+                                    <b-button type="submit" style="align-self: end" variant="primary" class="w-50">
+                                        <span>Connexion</span> </b-button>
                                 </b-form>
                             </div>
                         </div>
@@ -56,6 +57,7 @@
 <script lang="ts">
 import { Vue } from "vue-class-component";
 import { api } from "@/services/Api";
+import { auth } from "@/services/Auth";
 
 //   @Options({
 //     components: {
@@ -75,16 +77,14 @@ export default class LoginPage extends Vue {
     }
 
     async onSubmit(event: any) {
-       
+
         event.preventDefault()
-        // console.log(this.loginData, 'iyann')
-        // console.log(object);
-        console.log(api.post);
-        const data = await api.post(api.auth,"selfcare/login",
-            this.loginData
-        )
-        console.log(data);
-       
+        auth.login(this.loginData.username, this.loginData.password)
+        // const data = await api.post(api.auth, "selfcare/login",
+        //     this.loginData
+        // )
+        // console.log(data);
+
     }
 
 
