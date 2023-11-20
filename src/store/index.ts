@@ -22,8 +22,19 @@ export default createStore({
       ? new Tenant(JSON.parse(localStorage.getItem("currentTenant")!))
       : defaultTenant,
   },
-  getters: {},
-  mutations: {},
+  getters: {
+    currentTenant: (state, getters) => () => {
+      return state.currentTenant
+  },
+  },
+  mutations: {
+    loading(state: any) {
+      state.isLoading = true;
+  },
+  stopLoading(state: any) {
+      state.isLoading = false;
+  },
+  },
   actions: {},
   modules: {},
 });

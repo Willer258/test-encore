@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { auth } from "@/services/Auth";
 
 @Options({
   components: {
@@ -15,5 +16,9 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
   },
   
 })
-export default class HomeView extends Vue {}
+export default class HomeView extends Vue {
+  // mounted() {
+  //   auth.logout();
+  // }
+}
 </script>

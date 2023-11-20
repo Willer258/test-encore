@@ -4,6 +4,7 @@ import { api } from "@/services/Api";
 import router from "@/router";
 import User from "@/entity/User";
 import Tenant from "../entity/Tenant";
+import { helper } from "./Helper";
 
 class Auth {
   ROLE_HIERARCHY: any = {
@@ -24,6 +25,31 @@ class Auth {
   };
 
   async login(username: string, password: string) {
+    const result = await api.post(api.auth, "selfcare/login", {
+      username: username,
+      password: password,
+    });
+    if (!result) {
+      return false;
+    }
+    const data = result.data;
+    console.log(data);
+    if (data.token) {
+      store.state.userToken = data.token;
+      store.state.userRefreshToken = data.refreshToken;
+      store.state.tenants = [];
+      store.state.user = new User(data.user);
+      localStorage.setItem("mercureToken", data.mercure);
+      localStorage.setItem("refreshToken", data.refreshToken);
+      localStorage.setItem("userToken", data.token);
+      //   localStorage.setItem("user", JSON.stringify(data.user));
+      router.push({ name: "home" });
+      return true;
+    }
+    return false;
+  }
+
+  async register(username: string, password: string, parrain: string) {
     const result = await api.post(api.auth, "selfcare/login", {
       username: username,
       password: password,

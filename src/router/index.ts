@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/Dashboard/HomeView.vue'
 import LoginPage from '@/views/Auth/LoginPage.vue'
 import InscriptionPage from '@/views/Auth/InscriptionPage.vue'
+import ActivationPage from '@/views/Auth/Activation.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -35,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/inscription',
     name: 'Inscription',
     component: InscriptionPage
+  },
+  {
+    path: '/activation',
+    name: 'activation',
+    component: ActivationPage
   }
 ]
 

@@ -69,7 +69,7 @@ import { auth } from "@/services/Auth";
 
 
 
-export default class LoginPage extends Vue {
+export default class ActivationPage extends Vue {
 
     loginData = {
         username: '',
