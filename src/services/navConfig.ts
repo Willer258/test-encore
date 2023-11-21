@@ -5,14 +5,20 @@ export interface Links {
 }
 
 export const clientLinks: Links[] = [
+
+  {
+    title: "Accueil",
+    link: "/dashboard/",
+    name:'dashboard'
+  },
   {
     title: "Mes contrats",
-    link: "contrats",
+    link: "/dashboard/contrats",
     name:'contrats'
   },
   {
     title: "Mes cotations",
-    link: "cotations",
+    link: "/dashboard/cotations",
     name:'cotations'
   },
 ];
