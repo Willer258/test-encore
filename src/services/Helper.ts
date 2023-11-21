@@ -7,6 +7,13 @@ import {v4 as uuidv4} from 'uuid';
 export const FILTER_API_DATE_FORMAT = 'YYYYMMDDHHmmss';
 export const DISPLAY_DATE_FORMAT = 'MM/DD/YYYY';
 export const TABLE_DISPLAY_DATE_FORMAT = 'MM/DD/YYYY h:mm:ssA';
+export const CONTRACT_STATUS = {
+    QUOTATION: "DEVIS",
+    ONGOING: "EN_COURS",
+    TERMINATED: "RESILIE",
+    SUSPENDED: "SUSPENDU",
+    WAITING: "EN_ATTENTE",
+  };
 
 class Helper {
 

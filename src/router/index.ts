@@ -11,7 +11,6 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
     meta: {requiredRoles: ['ROLE_CUSTOMER']}
   },
-  
   {
     path: '/dashboard',
     name: 'mainLayout',

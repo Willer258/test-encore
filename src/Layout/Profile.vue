@@ -5,11 +5,11 @@
         </div>
 
         <transition name="fade-in-top">
-        <div v-if="activeDropdown" class="position-absolute shadow rounded-2 bg-white container-dropdown py-4 px-2  "
-            style="top: 70px; right: 0%;">
-            ffff
-        </div>
-    </transition>
+            <div v-if="activeDropdown" class="position-absolute shadow rounded-2 bg-white container-dropdown py-4 px-2  "
+                style="top: 70px; right: 0%;">
+                ffff
+            </div>
+        </transition>
 
     </div>
 </template>
