@@ -43,8 +43,8 @@ class Auth {
       localStorage.setItem("refreshToken", data.refreshToken);
       localStorage.setItem("userToken", data.token);
       //   localStorage.setItem("user", JSON.stringify(data.user));
-      router.push({ name: "home" });
-      return true;
+      router.push({ name: "dashboard" });
+      return true;  
     }
     return false;
   }
