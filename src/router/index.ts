@@ -7,18 +7,12 @@ import ActivationPage from '@/views/Auth/Activation.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
-    meta: {requiredRoles: ['ROLE_CUSTOMER']}
-  },
-  {
-    path: '/dashboard',
-    name: 'mainLayout',
+    name: 'Home',
     component: () => import('@/Layout/MainLayout.vue'),
     children: [
       {
-        path: '',
-        name: 'dashboard',
+        path: '/',
+        name: 'Home',
         component: HomeView
       }
     ],
@@ -36,11 +30,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Inscription',
     component: InscriptionPage
   },
-  {
-    path: '/activation',
-    name: 'activation',
-    component: ActivationPage
-  }
 ]
 
 const router = createRouter({

@@ -105,13 +105,6 @@ async onSubmit(e: any) {
             if (axios.isAxiosError(error)){
                 const status = error.response?.status
                 switch (status) {
-                    case ExceptionCodes.SUCCESS: {
-                        router.push({ name: "activation" });
-                        break;
-                    }
-                    case ExceptionCodes.BAD_CREDENTIALS: {
-                        break;
-                    }
                     case ExceptionCodes.DUPLICATED_ACCOUNT: {
                         alert("Ce numéro de téléphone est déjà lié à un compte. Connectez vous ou cliquez sur mot de passe oublié afin de réinitialiser vos identifiants")
                         router.push({ name: "login" });
@@ -125,7 +118,6 @@ async onSubmit(e: any) {
         }
 
     }
-   
 }
 
 async isValuesSet() { 

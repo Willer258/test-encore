@@ -1,27 +1,7 @@
 <template>
   <div class="home">
-    <b-container>
-            <b-row>
-                <b-col>
-                    <div class="d-flex flex-column justify-content-center h-100">
-                        <div>
-                            <h1 class="fs-3">
-                                Espace Client : Connectez-vous à Votre Selfcare !
-                            </h1>
-
-                            <p>
-                                Vous n'avez pas encore de compte ?? <b-button variant="link" to="/inscription"
-                                    class="p-0">Inscrivez
-                                    vous</b-button>
-                            </p>
-
-                            <div>
-                            </div>
-                        </div>
-                    </div>
-                </b-col>
-            </b-row>
-        </b-container>
+    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
+    DeadLine View
   </div>
 </template>
 
@@ -38,7 +18,7 @@ import { CONTRACT_STATUS } from '@/services/Helper';
   },
   
 })
-export default class HomeView extends Vue {
+export default class DeadlineView extends Vue {
   contrats: any[] = [];
   categories: any[] = [];
   defaultFilter = [
