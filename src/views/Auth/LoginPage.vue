@@ -31,8 +31,8 @@
                                 <b-form @submit="onSubmit" prevent="submit" class="d-flex flex-column ">
                                     <label class="sr-only" for="inline-form-input-name">Numero de telephone</label>
                                     <b-form-input v-model="loginData.username" type="tel" id="number"
-                                        class="mb-2 mr-sm-2 mb-sm-3"
-                                        placeholder="Entrez votre numéro de téléphone" required></b-form-input>
+                                        class="mb-2 mr-sm-2 mb-sm-3" placeholder="Entrez votre numéro de téléphone"
+                                        required></b-form-input>
 
                                     <label class="sr-only" for="inline-form-input-username">Mot de passe</label>
                                     <b-input-group class="mb-2 mr-sm-2 mb-sm-4">
@@ -56,7 +56,6 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
-import { api } from "@/services/Api";
 import { auth } from "@/services/Auth";
 
 //   @Options({
@@ -78,8 +77,13 @@ export default class LoginPage extends Vue {
 
     async onSubmit(e: any) {
         e.preventDefault()
-        auth.login(this.loginData.username, this.loginData.password)
-        console.log(this.loginData)
+        try {
+            auth.login(this.loginData.username, this.loginData.password)
+            console.log(this.loginData)
+        } catch (error) {
+            console.log(error);
+        }
+
 
     }
 
