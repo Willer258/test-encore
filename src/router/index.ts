@@ -3,14 +3,15 @@ import HomeView from '../views/Dashboard/HomeView.vue'
 import LoginPage from '@/views/Auth/LoginPage.vue'
 import InscriptionPage from '@/views/Auth/InscriptionPage.vue'
 import ActivationPage from '@/views/Auth/Activation.vue'
+import Cotations from '@/views/Dashboard/Cotations.vue'
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView,
-    meta: {requiredRoles: ['ROLE_CUSTOMER']}
-  },
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: HomeView,
+  //   meta: {requiredRoles: ['ROLE_CUSTOMER']}
+  // },
   {
     path: '/dashboard',
     name: 'mainLayout',
@@ -20,6 +21,16 @@ const routes: Array<RouteRecordRaw> = [
         path: '',
         name: 'dashboard',
         component: HomeView
+      },
+      {
+        path: 'cotations',
+        name: 'cotations',
+        component: Cotations
+      },
+      {
+        path: 'contrats',
+        name: 'contrats',
+        component: Cotations
       }
     ],
     meta: {

@@ -3,12 +3,12 @@
         <LogoComponent />
 
         <div class="d-flex flex-column mt-5">
+
+           
+
+            <b-button v-for="(item, index) in linksSidBar " :key="index"  :variant="activate(item.name)" :href="item.link" class="mb-3 text-start">{{item.title}}</b-button>
+
             
-            <b-button variant="primary" class="mb-3 text-start ">Home</b-button>
-            <b-button variant="light" class="mb-3 text-start">Home</b-button>
-            <b-button variant="light" class="mb-3 text-start">Home</b-button>
-            <b-button variant="light" class="mb-3 text-start">Home</b-button>
-            <b-button variant="light" class="mb-3 text-start">Home</b-button>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center mt-5 border-top p-3" style="height: 250px">
             <div class="bg-primary" style="height: 80px; width: 80px; border-radius: 100% ; flex: none;"></div>
@@ -25,6 +25,8 @@
 </template>
 
 <script lang="ts">
+import {clientLinks  } from "@/services/navConfig";
+import type {Links} from '@/services/navConfig'
 import { Vue, Options } from "vue-class-component";
 import LogoComponent from "@/components/UI/LogoComponent.vue";
 
@@ -33,8 +35,31 @@ import LogoComponent from "@/components/UI/LogoComponent.vue";
         LogoComponent,
     },
 })
+
+
 export default class SideBarComponent extends Vue {
-    msg!: string;
+   
+
+     linksSidBar:any = clientLinks
+
+
+     activate(item:string){
+
+        if (this.$route.name === item) {
+            return 'primary'
+        }
+        else{
+            return 'light'
+        }
+
+     }
+
+     mounted(): void {
+        // console.log(this.$route.name === item);
+     }
+     
+    
+     
 }
 </script>
 
