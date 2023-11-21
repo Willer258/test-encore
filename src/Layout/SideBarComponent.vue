@@ -29,7 +29,7 @@ import {clientLinks  } from "@/services/navConfig";
 import type {Links} from '@/services/navConfig'
 import { Vue, Options } from "vue-class-component";
 import LogoComponent from "@/components/UI/LogoComponent.vue";
-
+import { auth } from "@/services/Auth";
 @Options({
     components: {
         LogoComponent,
@@ -39,25 +39,30 @@ import LogoComponent from "@/components/UI/LogoComponent.vue";
 
 export default class SideBarComponent extends Vue {
    
+    user:any
+    linksSidBar:any = clientLinks
 
-     linksSidBar:any = clientLinks
-
-
-     activate(item:string){
-
+    activate(item:string){
         if (this.$route.name === item) {
             return 'primary'
         }
         else{
             return 'light'
         }
+    }
 
-     }
-
-     mounted(): void {
-        // console.log(this.$route.name === item);
-     }
-     
+    mounted(): void {
+    // console.log(this.$route.name === item);
+        this.loadUser();
+    }
+    
+    loadUser(){
+        const user = auth.getCurrentUser()
+        console.log(user)
+        // if (user) {
+        //     this.user = JSON.parse(user)
+        // }
+    }
     
      
 }

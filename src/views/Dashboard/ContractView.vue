@@ -37,7 +37,7 @@ import { CONTRACT_STATUS } from '@/services/Helper';
   },
   
 })
-export default class HomeView extends Vue {
+export default class ContractView extends Vue {
   contrats: any[] = [];
   categories: any[] = [];
   defaultFilter = [

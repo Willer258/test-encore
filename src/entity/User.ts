@@ -28,7 +28,7 @@ export default class User  {
     constructor(object?: any) {
         // super(object)
         if (object) {
-            this.id = object.id;
+            this.id = object.uuid;
             this.email = object.email;
             this.password = object.password;
             this.name = object.name;

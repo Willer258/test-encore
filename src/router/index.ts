@@ -4,6 +4,7 @@ import LoginPage from '@/views/Auth/LoginPage.vue'
 import InscriptionPage from '@/views/Auth/InscriptionPage.vue'
 import ActivationPage from '@/views/Auth/Activation.vue'
 import Cotations from '@/views/Dashboard/Cotations.vue'
+import ContractView from '@/views/Dashboard/ContractView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -30,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'contrats',
         name: 'contrats',
-        component: Cotations
+        component: ContractView
       }
     ],
     meta: {
@@ -38,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: LoginPage
   },

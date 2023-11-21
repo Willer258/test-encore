@@ -7,7 +7,9 @@
         <transition name="fade-in-top">
             <div v-if="activeDropdown" class="position-absolute shadow rounded-2 bg-white container-dropdown py-4 px-2  "
                 style="top: 70px; right: 0%;">
-                ffff
+                <b-button @click="logout" variant="link" class="mb-3 text-start">
+                    Deconnexion
+                </b-button>
             </div>
         </transition>
 
@@ -17,6 +19,7 @@
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
 import LogoComponent from "@/components/UI/LogoComponent.vue";
+import { auth } from "@/services/Auth";
 
 @Options({
     components: {
@@ -26,7 +29,9 @@ import LogoComponent from "@/components/UI/LogoComponent.vue";
 export default class Profile extends Vue {
     activeDropdown = false
 
-
+    logout(){
+        auth.logout();
+    }
 
     toggle() {
         this.activeDropdown = !this.activeDropdown

@@ -40,7 +40,7 @@
                                             placeholder="Entrez votre mot de passe"></b-form-input>
                                     </b-input-group>
 
-                                    <!-- <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox> -->
+                                    <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Se souvenir de moi</b-form-checkbox>
 
                                     <b-button type="submit" style="align-self: end" variant="primary" class="w-50">
                                         <span>Connexion</span> </b-button>
@@ -77,14 +77,8 @@ export default class LoginPage extends Vue {
 
     async onSubmit(e: any) {
         e.preventDefault()
-        try {
-            auth.login(this.loginData.username, this.loginData.password)
-            console.log(this.loginData)
-        } catch (error) {
-            console.log(error);
-        }
-
-
+        auth.login(this.loginData.username, this.loginData.password)
+        console.log(this.loginData)
     }
 
 
