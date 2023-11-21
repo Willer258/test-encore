@@ -1,7 +1,36 @@
 <template>
-    <div class="home">
-      HomeViek
-    </div>
+    <b-container>
+        <h2>Mes cotations</h2>
+        <div class="d-flex w-100 justify-content-end ">
+            <div>
+                <b-button  variant="primary">
+                Creer une cotation
+            </b-button>
+            </div>
+            
+        </div>
+
+        <div class="mt-5 rounded-2 overflow-hidden">
+            <b-table head-variant="light" 
+      :tbody-transition-props="transProps"  sticky-header hover :items="items">
+
+
+
+      <template #cell(action)="data" >
+        <div class="w-50 d-flex">
+            <b-button  class="mr-2">
+                Continuer
+        </b-button>
+
+        <b-button class="ms-3" variant="danger"> {{ data.value }} Supprimer</b-button>
+        </div>
+       
+      </template>
+
+    
+    </b-table>
+        </div>
+    </b-container>
   </template>
   
   <script lang="ts">
@@ -34,6 +63,25 @@
         },
       },
     ];
+
+    transProps= {
+          // Transition name
+          name: 'flip-list'
+        }
+
+     items =  [
+          { type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald' , action:'d'},
+          { type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald' , action:'d'},
+          { type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald' , action:'d'},
+          { type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald' , action:'d'},
+        //   { age: 21, first_name: 'Larsen', last_name: 'Shaw', action:'' },
+        //   { age: 89, first_name: 'Geneva', last_name: 'Wilson', action:'' },
+        //   { age: 38, first_name: 'Jami', last_name: 'Carney', action:'' }
+        ]
+
+
+
+
     mounted() {
       // auth.logout();
       this.loadBranchCategories();
@@ -65,55 +113,7 @@
         console.log(e);
       }
     }
-  
-    // resetFilters() {
-    //   const f = this.defaultFilter;
-    //   for (let cat of categories) {
-    //     for (let branch of cat.branches) {
-    //       // console.log("checking " + branch.label);
-    //       const match = f.find((filter) => {
-    //         return filter.filter.branch === branch.slug;
-    //       });
-    //       if (!match) {
-    //         const contractExpire = contracts.find((c) => {
-    //           return c.branch.slug === branch.slug;
-    //         });
-    //         if (contractExpire) {
-    //           // console.log("match = " + match);
-    //           f.push({
-    //             label: branch.label,
-    //             filter: {
-    //               branch: branch.slug,
-    //             },
-    //           });
-    //           break;
-    //         }
-    //       }
-    //     }
-    //   }
-    //   setFilters(f);
-    // };
-  
-    // filtering(filter: any){
-    //   const status = filter.filter.status;
-    //   const branch = filter.filter.branch;
-    //   let results = [...contracts];
-  
-    //   // console.log(results.length);
-    //   // console.log(filter);
-    //   if (status) {
-    //     results = results.filter((c) => {
-    //       return c.status === status;
-    //     });
-    //   }
-    //   if (branch) {
-    //     results = results.filter((c) => {
-    //       return c.branch.slug === branch;
-    //     });
-    //   }
-    //   // console.log(results.length);
-    //   setFiltered(results);
-    // };
+ 
   }
   </script>
   
