@@ -42,7 +42,7 @@ class Auth {
         localStorage.setItem("mercureToken", data.mercure);
         localStorage.setItem("refreshToken", data.refreshToken);
         localStorage.setItem("userToken", data.token);
-          localStorage.setItem("user", JSON.stringify(data.customer));
+        localStorage.setItem("user", JSON.stringify(data.customer));
         router.push({ name: "dashboard" });
       }
     } catch (error) {

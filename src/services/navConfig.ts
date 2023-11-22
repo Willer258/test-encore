@@ -21,4 +21,9 @@ export const clientLinks: Links[] = [
     link: "/dashboard/cotations",
     name:'cotations'
   },
+  {
+    title: "Parrainage",
+    link: "/dashboard/parrainage",
+    name:'parrainage'
+  },
 ];

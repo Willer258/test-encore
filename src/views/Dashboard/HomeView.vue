@@ -6,13 +6,11 @@
                     <div class="d-flex flex-column justify-content-center h-100">
                         <div>
                             <h1 class="fs-3">
-                                Espace Client : Connectez-vous à Votre Selfcare !
+                                Espace Client : Votre Selfcare !
                             </h1>
 
                             <p>
-                                Vous n'avez pas encore de compte ?? <b-button variant="link" to="/inscription"
-                                    class="p-0">Inscrivez
-                                    vous</b-button>
+                          
                             </p>
 
                             <div>

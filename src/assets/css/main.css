@@ -458,6 +458,11 @@ caption {
 th {
   text-align: inherit;
   text-align: -webkit-match-parent;
+  /* background-color: #051b11 !important; */
+  padding: 20px 10px !important;
+  background: transparent !important;
+  /* border:solid 2px  #000  !important; */
+  
 }
 
 thead,
@@ -1919,7 +1924,7 @@ progress {
   --bs-table-hover-color: var(--bs-emphasis-color);
   --bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0 !important;
   vertical-align: top;
   border-color: var(--bs-table-border-color);
 }
@@ -1942,7 +1947,7 @@ progress {
 }
 
 .table-group-divider {
-  border-top: calc(var(--bs-border-width) * 2) solid currentcolor;
+  border-top: 2px !important;
 }
 
 .caption-top {

@@ -5,6 +5,7 @@ import InscriptionPage from '@/views/Auth/InscriptionPage.vue'
 import ActivationPage from '@/views/Auth/Activation.vue'
 import Cotations from '@/views/Dashboard/Cotations.vue'
 import ContractView from '@/views/Dashboard/ContractView.vue'
+import ParrainageView from '@/views/Dashboard/ParrainageView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -32,7 +33,12 @@ const routes: Array<RouteRecordRaw> = [
         path: 'contrats',
         name: 'contrats',
         component: ContractView
-      }
+      },
+      {
+        path: 'parrainage',
+        name: 'parrainage',
+        component: ParrainageView
+      },
     ],
     meta: {
       requiredRoles: ['ROLE_CUSTOMER']
