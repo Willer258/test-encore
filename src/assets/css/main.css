@@ -459,7 +459,7 @@ th {
   text-align: inherit;
   text-align: -webkit-match-parent;
   /* background-color: #051b11 !important; */
-  padding: 20px 10px !important;
+  padding: 20px 0px !important;
   background: transparent !important;
   /* border:solid 2px  #000  !important; */
   
@@ -1940,11 +1940,30 @@ progress {
     var(--bs-table-bg-state, var(--bs-table-bg-type, var(--bs-table-accent-bg)));
 }
 .table > tbody {
-  vertical-align: inherit;
+  vertical-align: middle;
+  border-bottom: #dee2e6 solid;
 }
+
+.table > tbody > tr >td {
+  background: transparent;
+  border: none !important;
+  transition: all 0.5s;
+}
+
 .table > thead {
   vertical-align: bottom;
 }
+
+.table > thead > tr > th:first-child > div {
+  border-left: none;
+
+}
+.table > thead > tr > th > div {
+  padding-left: 10px;
+  border-left: 1px solid #ccc;
+}
+
+
 
 .table-group-divider {
   border-top: 2px !important;
@@ -4950,16 +4969,16 @@ a {
   --bs-pagination-bg: var(--bs-body-bg);
   --bs-pagination-border-width: var(--bs-border-width);
   --bs-pagination-border-color: var(--bs-border-color);
-  --bs-pagination-border-radius: var(--bs-border-radius);
+  --bs-pagination-border-radius: 2rem;
   --bs-pagination-hover-color: var(--bs-link-hover-color);
   --bs-pagination-hover-bg: var(--bs-tertiary-bg);
   --bs-pagination-hover-border-color: var(--bs-border-color);
   --bs-pagination-focus-color: var(--bs-link-hover-color);
   --bs-pagination-focus-bg: var(--bs-secondary-bg);
-  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(224, 51, 138, 0.25);
   --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: #0d6efd;
-  --bs-pagination-active-border-color: #0d6efd;
+  --bs-pagination-active-bg: var(--bs-primary);
+  --bs-pagination-active-border-color: var(--bs-primary);
   --bs-pagination-disabled-color: var(--bs-secondary-color);
   --bs-pagination-disabled-bg: var(--bs-secondary-bg);
   --bs-pagination-disabled-border-color: var(--bs-border-color);
