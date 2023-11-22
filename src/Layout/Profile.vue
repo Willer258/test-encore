@@ -1,13 +1,25 @@
 <template>
     <div class="position-relative">
-        <div class="sidebar shadow p-3 d-flex flex-column justify-content-between" @click="toggle" ref="select" style="background: white">
-
+        <div class="sidebar shadow p-3 d-flex flex-column justify-content-between cursor-pointer" @click="toggle" ref="select" style="background: white">
+            <img style="" class="img-fluid"  src="../assets/icons/nut.svg"
+                    alt="">
         </div>
 
         <transition name="fade-in-top">
             <div v-if="activeDropdown" class="position-absolute shadow rounded-2 bg-white container-dropdown py-4 px-2  "
                 style="top: 70px; right: 0%;">
-                ffff
+                <div class="d-flex flex-column align-items-center justify-content-between mt-5  p-3" style="height: 250px">
+                    <div>
+                        <b-button  class="mt-3 text-start">
+                            Mon Profile
+                        </b-button>
+                    </div>
+                    <div class="d-flex align-items-end mt-4 border-top">
+                        <b-button @click="logout" variant="primary"  class="mt-3 text-start">
+                            Deconnexion
+                        </b-button>
+                    </div>
+                </div>
             </div>
         </transition>
 
@@ -17,6 +29,7 @@
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
 import LogoComponent from "@/components/UI/LogoComponent.vue";
+import { auth } from "@/services/Auth";
 
 @Options({
     components: {
@@ -26,7 +39,9 @@ import LogoComponent from "@/components/UI/LogoComponent.vue";
 export default class Profile extends Vue {
     activeDropdown = false
 
-
+    logout(){
+        auth.logout();
+    }
 
     toggle() {
         this.activeDropdown = !this.activeDropdown

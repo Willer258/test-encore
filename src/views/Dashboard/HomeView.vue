@@ -1,14 +1,31 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    HomeView
+    <b-container>
+            <b-row>
+                <b-col>
+                    <div class="d-flex flex-column justify-content-center h-100">
+                        <div>
+                            <h1 class="fs-3">
+                                Espace Client : Votre Selfcare !
+                            </h1>
+
+                            <p>
+                          
+                            </p>
+
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-import { auth } from "@/services/Auth";
 import { api } from '@/services/Api';
 import { CONTRACT_STATUS } from '@/services/Helper';
 
@@ -23,23 +40,25 @@ export default class HomeView extends Vue {
   categories: any[] = [];
   defaultFilter = [
     {
-      label: "Tous mes contrats", 
+      label: "Tous mes contrats",
       filter: {
         status: CONTRACT_STATUS.ONGOING,
+        branch: ""
       },
     },
     {
-      label: "Expiré", 
+      label: "Expiré",
       filter: {
         status: CONTRACT_STATUS.TERMINATED,
+        branch: ""
       },
     },
   ];
   mounted() {
-    // auth.logout();
     this.loadBranchCategories();
     this.loadContract();
-    console.log(this.contrats, this.categories);
+    this.resetFilters();
+    console.log(this.defaultFilter)
   }
 
   async loadContract(){
@@ -47,8 +66,9 @@ export default class HomeView extends Vue {
       const res = await api.get(api.core, "selfcare/contracts");
       //console.log(res.data)
       if (res && res.data && res.data.contracts) {
-        //console.log(res.data.contracts.length + " contracts loaded");
-        this.contrats = res.data.contracts
+        res.data.contracts.forEach((cont: any) => {
+          this.contrats.push(cont);
+        })
       }
     } catch (e) {
       console.log(e);
@@ -59,61 +79,68 @@ export default class HomeView extends Vue {
       const res = await api.get(api.core, "api/branch/list");
       //console.log(res.data)
       if (res && res.data && res.data.categories) {
-        this.categories = res.data.categories
-        //console.log(res.data.categories.length + " categories loaded");
+        res.data.categories.forEach((cat: any) => {
+          this.categories.push(cat);
+        })
       }
     } catch (e) {
       console.log(e);
     }
   }
 
-  // resetFilters() {
-  //   const f = this.defaultFilter;
-  //   for (let cat of categories) {
-  //     for (let branch of cat.branches) {
-  //       // console.log("checking " + branch.label);
-  //       const match = f.find((filter) => {
-  //         return filter.filter.branch === branch.slug;
-  //       });
-  //       if (!match) {
-  //         const contractExpire = contracts.find((c) => {
-  //           return c.branch.slug === branch.slug;
-  //         });
-  //         if (contractExpire) {
-  //           // console.log("match = " + match);
-  //           f.push({
-  //             label: branch.label,
-  //             filter: {
-  //               branch: branch.slug,
-  //             },
-  //           });
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   setFilters(f);
-  // };
+  resetFilters() {
+    const f = this.defaultFilter;
+    for (let cat of this.categories) {
+      for (let branch of cat.branches) {
+        // console.log("checking " + branch.label);
+        const match = f.find((filter) => {
+          return filter.filter.branch === branch.slug;
+        });
+        if (!match) {
+          const contractExpire = this.contrats.find((c) => {
+            return c.branch.slug === branch.slug;
+          });
+          if (contractExpire) {
+            // console.log("match = " + match);
+            f.push({
+              label: branch.label,
+              filter: {
+                status:"",
+                branch: branch.slug,
+              },
+            });
+            break;
+          }
+        }
+      }
+    }
+    f.forEach((f:any) => {
+      this.defaultFilter.push(f);
+    });
+  };
 
-  // filtering(filter: any){
-  //   const status = filter.filter.status;
-  //   const branch = filter.filter.branch;
-  //   let results = [...contracts];
+  filtering(filter: any){
+    const status = filter.filter.status;
+    const branch = filter.filter.branch;
+    let results = [...this.contrats];
 
-  //   // console.log(results.length);
-  //   // console.log(filter);
-  //   if (status) {
-  //     results = results.filter((c) => {
-  //       return c.status === status;
-  //     });
-  //   }
-  //   if (branch) {
-  //     results = results.filter((c) => {
-  //       return c.branch.slug === branch;
-  //     });
-  //   }
-  //   // console.log(results.length);
-  //   setFiltered(results);
-  // };
+    // console.log(results.length);
+    // console.log(filter);
+    if (status) {
+      results = results.filter((c) => {
+        return c.status === status;
+      });
+    }
+    if (branch) {
+      results = results.filter((c) => {
+        return c.branch.slug === branch;
+      });
+    }
+    // console.log(results.length);
+    results.forEach((f:any) => {
+      this.defaultFilter.push(f);
+    });
+  };
+
 }
 </script>

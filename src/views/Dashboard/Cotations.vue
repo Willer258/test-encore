@@ -18,16 +18,17 @@
 
                 <template #cell(id)="data">
 
-                    <b-button class="mr-2" style="height: 40px; width: 40px; padding: 5px;">
-                        <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/continue.svg"
+                    <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;">
+                        <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/todo-line.svg"
                             alt="">
                     </b-button>
 
                     {{ data.id }}
 
-                    <b-button class="ms-3" variant="danger" style="height: 40px; width: 40px; padding: 5px;"> <img
-                            style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/delete.svg"
-                            alt=""> </b-button>
+                    <b-button class="ms-3" variant="danger" style="height: 40px; width: 40px; padding: 5px;"> 
+                      <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/delete.svg"
+                            alt=""> 
+                    </b-button>
 
 
                 </template>
@@ -83,21 +84,21 @@ export default class CotationView extends Vue {
     }
 
     items = [
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
-        { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
+        // { id: '1', type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald', action: 'd' },
         //   { age: 21, first_name: 'Larsen', last_name: 'Shaw', action:'' },
         //   { age: 89, first_name: 'Geneva', last_name: 'Wilson', action:'' },
         //   { age: 38, first_name: 'Jami', last_name: 'Carney', action:'' }
@@ -111,14 +112,11 @@ export default class CotationView extends Vue {
 
     ]
 
-
-
-
     mounted() {
         // auth.logout();
         this.loadBranchCategories();
         this.loadContract();
-        console.log(this.contrats, this.categories);
+        console.log(this.items);
     }
 
     rows() {
@@ -129,7 +127,7 @@ export default class CotationView extends Vue {
             const res = await api.get(api.form, 'selfcare/load/response/groups');
 
             if (res && res.data && res.data.responseGroups) {
-                console.log(res.data.responseGroups);
+                // console.log(res.data.responseGroups);
 
                 const dataFiltered = res.data.responseGroups.map((item: any) => ({
 
@@ -138,7 +136,7 @@ export default class CotationView extends Vue {
                     status: item.status,
                     derniere_modification: helper.readable(item.updatedAt)  ,
                 }))
-
+                
                 this.items = dataFiltered
 
 

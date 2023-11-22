@@ -4,6 +4,9 @@ import LoginPage from '@/views/Auth/LoginPage.vue'
 import InscriptionPage from '@/views/Auth/InscriptionPage.vue'
 import ActivationPage from '@/views/Auth/Activation.vue'
 import Cotations from '@/views/Dashboard/Cotations.vue'
+import ContractView from '@/views/Dashboard/ContractView.vue'
+import ParrainageView from '@/views/Dashboard/ParrainageView.vue'
+import DeadlineView from '@/views/Dashboard/DeadlineView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -17,28 +20,38 @@ const routes: Array<RouteRecordRaw> = [
     name: 'mainLayout',
     component: () => import('@/Layout/MainLayout.vue'),
     children: [
-      {
-        path: '',
-        name: 'dashboard',
-        component: HomeView
-      },
+      // {
+      //   path: '',
+      //   name: 'dashboard',
+      //   component: HomeView
+      // },
       {
         path: 'cotations',
         name: 'cotations',
         component: Cotations
       },
       {
-        path: 'contrats',
-        name: 'contrats',
-        component: Cotations
-      }
+        path: '/dashboard',
+        name: 'dashboard',
+        component: ContractView
+      },
+      {
+        path: 'deadline',
+        name: 'deadline',
+        component: DeadlineView
+      },
+      {
+        path: 'parrainage',
+        name: 'parrainage',
+        component: ParrainageView
+      },
     ],
     meta: {
       requiredRoles: ['ROLE_CUSTOMER']
     }
   },
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: LoginPage
   },
@@ -47,11 +60,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Inscription',
     component: InscriptionPage
   },
-  {
-    path: '/activation',
-    name: 'activation',
-    component: ActivationPage
-  }
 ]
 
 const router = createRouter({

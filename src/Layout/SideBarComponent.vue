@@ -11,14 +11,17 @@
             
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center mt-5 border-top p-3" style="height: 250px">
-            <div class="bg-primary" style="height: 80px; width: 80px; border-radius: 100% ; flex: none;"></div>
+            <div class="bg-primary p-3" style="height: 80px; width: 80px; border-radius: 100% ; flex: none;">
+                <img style="" class="img-fluid"  src="../assets/icons/user.svg"
+                    alt="">
+            </div>
             <div class="d-flex align-items-end mt-4">
-                <h4>Jhon</h4>
-                <h4 class="ms-2">Doe</h4>
+                <h4 v-if="user">{{user.prename}}</h4>
+                <h4 class="ms-2" v-if="user">{{user.name}}</h4>
             </div>
 
-            <p>
-                inFO A METTRE
+            <p v-if="user">
+                {{user.phone}}
             </p>
         </div>
     </div>
@@ -29,7 +32,8 @@ import {clientLinks  } from "@/services/navConfig";
 import type {Links} from '@/services/navConfig'
 import { Vue, Options } from "vue-class-component";
 import LogoComponent from "@/components/UI/LogoComponent.vue";
-
+import { auth } from "@/services/Auth";
+import User from "@/entity/User";
 @Options({
     components: {
         LogoComponent,
@@ -39,26 +43,34 @@ import LogoComponent from "@/components/UI/LogoComponent.vue";
 
 export default class SideBarComponent extends Vue {
    
+    user:User | null = null;
+    linksSidBar:any = clientLinks
 
-     linksSidBar:any = clientLinks
-
-
-     activate(item:string){
-
+    activate(item:string){
         if (this.$route.name === item) {
             return 'primary'
         }
         else{
             return 'light'
         }
+    }
 
-     }
-
-     mounted(): void {
-        // console.log(this.$route.name === item);
-     }
-     
+    mounted(): void {
+        this.loadUser();
+        console.log(this.user)
+    }
     
+    loadUser(){
+        // const user = auth.getCurrentUser()
+        // if (user) {
+        //     this.user = user
+        // }
+        const user = localStorage.getItem("user");
+        if (user) {
+            const dataUser = JSON.parse(user);
+            this.user = new User(dataUser)
+        }
+    }
      
 }
 </script>
