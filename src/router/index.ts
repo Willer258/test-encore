@@ -6,6 +6,7 @@ import ActivationPage from '@/views/Auth/Activation.vue'
 import Cotations from '@/views/Dashboard/Cotations.vue'
 import ContractView from '@/views/Dashboard/ContractView.vue'
 import ParrainageView from '@/views/Dashboard/ParrainageView.vue'
+import DeadlineView from '@/views/Dashboard/DeadlineView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -19,20 +20,25 @@ const routes: Array<RouteRecordRaw> = [
     name: 'mainLayout',
     component: () => import('@/Layout/MainLayout.vue'),
     children: [
-      {
-        path: '',
-        name: 'dashboard',
-        component: HomeView
-      },
+      // {
+      //   path: '',
+      //   name: 'dashboard',
+      //   component: HomeView
+      // },
       {
         path: 'cotations',
         name: 'cotations',
         component: Cotations
       },
       {
-        path: 'contrats',
-        name: 'contrats',
+        path: '/dashboard',
+        name: 'dashboard',
         component: ContractView
+      },
+      {
+        path: 'deadline',
+        name: 'deadline',
+        component: DeadlineView
       },
       {
         path: 'parrainage',

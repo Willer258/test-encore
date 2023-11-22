@@ -85,6 +85,36 @@ class Helper {
     //         return amount
     //     }
     // }
+    currencyFormat(amount:any, abs = false, currency = false) {
+        const factor = 1;
+        const symbol = "CFA";
+        try {
+            amount = parseFloat(amount);
+            if (abs) {
+            amount = Math.abs(amount);
+            }
+            amount = this.roundMoney(amount, 2);
+            // console.log(amount)
+            amount = "" + amount * factor;
+            if (!amount) {
+            return amount;
+            }
+            amount = amount.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            if (!currency) {
+            return amount;
+            }
+            if (symbol) {
+            // if (store.state.currency.left) {
+            //   amount = symbol + " " + amount;
+            // } else {
+            amount += " " + symbol;
+            // }
+            }
+            return amount;
+        } catch (e) {
+            return amount;
+        }
+    }
 
     roundMoney(amount: any, count: number) {
         amount = parseFloat(amount);
@@ -329,6 +359,13 @@ class Helper {
         }
         return true;
       }
+    
+    toCapitalize(text: string):string {
+        if (!text) {
+            return text;
+        }
+        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
 }
 
 export const helper = new Helper()

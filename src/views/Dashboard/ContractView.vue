@@ -1,20 +1,25 @@
 <template>
   <b-container>
-      <h2>Mes contrats</h2>
-      <div class="d-flex w-100 justify-content-end ">
+      <h2>Mes Contrats</h2>
+      <!-- <div class="d-flex w-100 justify-content-end ">
           <div>
               <b-button  variant="primary">
               Creer une cotation
           </b-button>
           </div>
           
-      </div>
+      </div> -->
 
-      <div class="mt-5 rounded-2 overflow-hidden">
-        <b-table head-variant="light" 
+      <div class="mt-5 rounded-2 overflow-hidden d-flex flex-column  bg-white px-3 py-2">
+        <b-table head-variant="light" :fields="fields" :current-page="currentPage" id="my-table"
             :tbody-transition-props="transProps"  sticky-header hover :items="contrats">
+            
+            <template #cell(photo)="data" >
+                <img :src="data.item.photo" alt="" style="width: 13%; height: 13%;" class="img-fluid">
+                <span class="m-5">{{ data.item.label }}</span>
+            </template>
 
-          <template #cell(action)="data" >
+          <!-- <template #cell(id)="data" >
             <div class="w-50 d-flex">
               <b-button  class="mr-2">
                   Continuer
@@ -24,9 +29,25 @@
                  Supprimer
               </b-button>
             </div>
+          </template> -->
+          <template #cell(id)="data">
+
+            <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;">
+                <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/eyes.svg"
+                    alt="">
+            </b-button>
+
+            {{ data.id }}
+
+            <b-button class="ms-3" variant="danger" style="height: 40px; width: 40px; padding: 5px;"> 
+              <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/delete.svg"
+                    alt=""> 
+            </b-button>
           </template>
-    
         </b-table>
+        <b-pagination class="align-self-end mt-3" v-model="currentPage" :total-rows="rows()" :per-page="perPage"
+                aria-controls="my-table">
+        </b-pagination>
       </div>
   </b-container>
 </template>
@@ -46,43 +67,27 @@ import { CONTRACT_STATUS, helper } from '@/services/Helper';
 export default class ContractView extends Vue {
   contrats: any[] = [];
   categories: any[] = [];
-  defaultFilter = [
-    {
-      label: "Tous mes contrats",
-      filter: {
-        status: CONTRACT_STATUS.ONGOING,
-        branch: ""
-      },
-    },
-    {
-      label: "Expiré",
-      filter: {
-        status: CONTRACT_STATUS.TERMINATED,
-        branch: ""
-      },
-    },
-  ];
-
   transProps= {
-          // Transition name
-          name: 'flip-list'
-        }
-
-
-    //  items =  [
-    //       { type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald' , action:'d'},
-    //       { type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald' , action:'d'},
-    //       { type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald' , action:'d'},
-    //       { type_de_cotation: 40, date: 'Dickerson', progession: 'Macdonald' , action:'d'},
-    //     //   { age: 21, first_name: 'Larsen', last_name: 'Shaw', action:'' },
-    //     //   { age: 89, first_name: 'Geneva', last_name: 'Wilson', action:'' },
-    //     //   { age: 38, first_name: 'Jami', last_name: 'Carney', action:'' }
-    //     ]
-
+  name: 'flip-list'
+  }
+  fields = [
+      { key: 'photo', label: 'Contrat' },
+      { key: 'insurer', label: 'Assureur' },
+      { key: 'duration', label: 'Période' },
+      { key: 'status', label: 'Status' },
+      { key: 'id', label: '' },
+  ]
+  perPage = 10
+  currentPage = 1
+  
   mounted() {
     this.loadBranchCategories();
     this.loadContract();
     // console.log(this.categories);
+  }
+
+  rows() {
+    return this.contrats.length
   }
 
   async loadContract(){
@@ -93,31 +98,14 @@ export default class ContractView extends Vue {
         res.data.contracts.forEach((cont: any) => {
             const data:any = {}
             data.photo = process.env.VUE_APP_MASTER_URL+"uploads/"+cont.branch.photo
-            const marque = cont.assetAliases[0]
-            if (marque) {
-              data.marque = marque
-            } else {
-              const parts = (cont.alias).split(" ")
-              if (parts.length > 0){
-                data.marque = parts[0]+" "+parts[1]
-              }
-            }
-            const immat = cont.assetsIdentifiers[0]
-            if (immat) {
-              data.immat = immat
-            } else {
-              const parts = (cont.alias).split(" ")
-              if (parts.length > 0){
-                data.immat = parts[2]
-              }
-            }
-            
             data.insurer = cont.insurer.label
             data.duration = helper.readable(cont.startAt, 'dMy') +" - "+helper.readable(cont.expireAt, 'dMy')
-            data.action = cont.uuid
+            data.status = cont.status
+            data.label = cont.branch.label
+            data.id = cont.uuid
 
-          console.log(data)
-          console.log(cont)
+          // console.log(data)
+          // console.log(cont)
           this.contrats.push(data);
         })
       }
@@ -138,37 +126,6 @@ export default class ContractView extends Vue {
       console.log(e);
     }
   }
-
-  // resetFilters() {
-  //   const f = this.defaultFilter;
-  //   for (let cat of this.categories) {
-  //     for (let branch of cat.branches) {
-  //       // console.log("checking " + branch.label);
-  //       const match = f.find((filter) => {
-  //         return filter.filter.branch === branch.slug;
-  //       });
-  //       if (!match) {
-  //         const contractExpire = this.contrats.find((c) => {
-  //           return c.branch.slug === branch.slug;
-  //         });
-  //         if (contractExpire) {
-  //           // console.log("match = " + match);
-  //           f.push({
-  //             label: branch.label,
-  //             filter: {
-  //               status:"",
-  //               branch: branch.slug,
-  //             },
-  //           });
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   f.forEach((f:any) => {
-  //     this.defaultFilter.push(f);
-  //   });
-  // };
 
   // filtering(filter: any){
   //   const status = filter.filter.status;

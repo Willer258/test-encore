@@ -11,14 +11,17 @@
             
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center mt-5 border-top p-3" style="height: 250px">
-            <div class="bg-primary" style="height: 80px; width: 80px; border-radius: 100% ; flex: none;"></div>
+            <div class="bg-primary p-3" style="height: 80px; width: 80px; border-radius: 100% ; flex: none;">
+                <img style="" class="img-fluid"  src="../assets/icons/user.svg"
+                    alt="">
+            </div>
             <div class="d-flex align-items-end mt-4">
                 <h4 v-if="user">{{user.prename}}</h4>
                 <h4 class="ms-2" v-if="user">{{user.name}}</h4>
             </div>
 
             <p v-if="user">
-                    {{user.phone}}
+                {{user.phone}}
             </p>
         </div>
     </div>
