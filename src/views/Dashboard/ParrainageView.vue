@@ -2,8 +2,8 @@
   <b-container>
       <h2>Mes Parrainages</h2>
       <div class="d-flex w-100 justify-content-end ">
-          <div class="bg-primary p-3" style="height: 60px; width: 25%; border-radius: 10px ; flex: none;">
-            <span style="font-size: 1.5em; font-weight: 500;">Solde : {{ solde }} CFA</span>
+          <div class="d-flex bg-primary p-3" style="height: 60px; border-radius: 10px ; flex: none;">
+            <span style="font-size: 1.5em; font-weight: 500;color: antiquewhite;">Solde : {{ solde }} CFA</span>
           </div>
       </div>
 
@@ -12,7 +12,7 @@
             :tbody-transition-props="transProps"  sticky-header hover :items="fileuls">
 
           <template #cell(id)="data">
-                <img style="" class="img-fluid" :id="data.item.id" src="../../assets/icons/user-bold-duotone.svg"
+                <img class="img-fluid" style="height: 40px;" :id="data.item.id" src="../../assets/icons/user-bold-duotone.svg"
                     alt="">
           </template>
 
@@ -82,8 +82,8 @@ export default class ParrainageView extends Vue {
         }
         data.id = fileul.godson.id
 
-        console.log(data)
-        console.log(fileul)
+        // console.log(data)
+        // console.log(fileul)
         this.fileuls.push(data);
       });
     }

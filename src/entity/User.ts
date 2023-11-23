@@ -7,7 +7,7 @@ export default class User  {
 
     public id!: number;
     public email = '';
-    public password?= '';
+    // public password?= '';
     public name?= '';
     public prename?= '';
     // public available?: boolean;
@@ -30,7 +30,7 @@ export default class User  {
         if (object) {
             this.id = object.uuid;
             this.email = object.email;
-            this.password = object.password;
+            // this.password = object.password;
             this.name = object.name;
             this.prename = object.prename;
             // this.available = object.available;

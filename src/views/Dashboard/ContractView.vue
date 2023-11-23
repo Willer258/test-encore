@@ -32,23 +32,24 @@
           </template> -->
           <template #cell(id)="data">
 
-            <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;">
+            <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;" v-b-modal="'my-modal'" :id="data.id" >
                 <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/eyes.svg"
                     alt="">
             </b-button>
 
-            {{ data.id }}
+           
 
-            <b-button class="ms-3" variant="danger" style="height: 40px; width: 40px; padding: 5px;"> 
+            <!-- <b-button class="ms-3" variant="danger" style="height: 40px; width: 40px; padding: 5px;"> 
               <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/delete.svg"
                     alt=""> 
-            </b-button>
+            </b-button> -->
           </template>
         </b-table>
         <b-pagination class="align-self-end mt-3" v-model="currentPage" :total-rows="rows()" :per-page="perPage"
                 aria-controls="my-table">
         </b-pagination>
       </div>
+      <b-modal id="my-modal">Hello From My Modal!</b-modal>
   </b-container>
 </template>
 
@@ -74,7 +75,6 @@ export default class ContractView extends Vue {
       { key: 'photo', label: 'Contrat' },
       { key: 'insurer', label: 'Assureur' },
       { key: 'duration', label: 'Période' },
-      { key: 'status', label: 'Status' },
       { key: 'id', label: '' },
   ]
   perPage = 10
