@@ -12,22 +12,22 @@ export const clientLinks: Links[] = [
   //   name:'dashboard'
   // },
   {
-    title: "Mes contrats",
+    title: "Mes Contrats",
     link: "/dashboard",
     name:'dashboard'
   },
   {
-    title: "Mes cotations",
+    title: "Mes Cotations",
     link: "/dashboard/cotations",
     name:'cotations'
   },
   {
-    title: "Mes échéances",
+    title: "Mes Échéances",
     link: "/dashboard/deadline",
     name:'deadline'
   },
   {
-    title: "Parrainage",
+    title: "Mes Parrainages",
     link: "/dashboard/parrainage",
     name:'parrainage'
   },

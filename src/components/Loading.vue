@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div :style="{ 'background' : background}" id="filter">
         <div :style="{'width': width, 'height' : width}" class="water"
              id="container">
@@ -10,15 +10,15 @@
         </div>
     </div>
 
-</template>
+</template> -->
 <script lang="ts">
     /* eslint-disable */
-    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import { Vue, Options } from "vue-class-component";
 
-    @Component({})
+    // @Component({})
     export default class Loading extends Vue {
-        @Prop({default:'200px'}) width!: string;
-        @Prop({default:'200px'}) background!: string;
+        // @Prop({default:'200px'}) width!: string;
+        // @Prop({default:'200px'}) background!: string;
 
     }
 </script>

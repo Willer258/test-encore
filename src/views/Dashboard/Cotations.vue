@@ -4,7 +4,7 @@
         <div class="d-flex w-100 justify-content-end ">
             <div>
                 <b-button variant="primary">
-                    Créer une cotation
+                    Nouvelle cotation
                 </b-button>
             </div>
 
@@ -18,17 +18,15 @@
 
                 <template #cell(id)="data">
 
-                    <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;">
+                    <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;" :id="data.id">
                         <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/todo-line.svg"
                             alt="">
                     </b-button>
 
-                    {{ data.id }}
-
-                    <b-button class="ms-3" variant="danger" style="height: 40px; width: 40px; padding: 5px;"> 
+                    <!-- <b-button class="ms-3" variant="danger" style="height: 40px; width: 40px; padding: 5px;"> 
                       <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/delete.svg"
                             alt=""> 
-                    </b-button>
+                    </b-button> -->
 
 
                 </template>
@@ -106,7 +104,7 @@ export default class CotationView extends Vue {
 
     fields = [
         { key: 'type_de_cotation', label: 'Cotations' },
-        { key: 'status', label: 'Status' },
+        // { key: 'status', label: 'Status' },
         { key: 'derniere_modification', label: 'Derniere modification' },
         { key: 'id', label: '' },
 
