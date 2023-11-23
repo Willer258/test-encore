@@ -11,7 +11,7 @@
                 </span>
             </router-link>
 
-            <b-button  :variant="'light'" :href="'https://wa.me/+2250701363636'" class="mb-3 text-start">Mes Sinistres</b-button>
+            <b-button  :variant="'light'" :href="'https://wa.me/2250701363636'" class="mb-3 text-start">Mes Sinistres</b-button>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center mt-5 border-top p-3" style="height: 250px">
             <div class="bg-primary p-3" style="height: 80px; width: 80px; border-radius: 100% ; flex: none;">

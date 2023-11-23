@@ -3,7 +3,7 @@
         <h2>Mes cotations</h2>
         <div class="d-flex w-100 justify-content-end ">
             <div>
-                <b-button variant="primary">
+                <b-button variant="primary" :href="'https://comparer.wia.ci/'">
                     Nouvelle cotation
                 </b-button>
             </div>
