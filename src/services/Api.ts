@@ -63,8 +63,8 @@ class Api {
                 return config;
             },
             (error: AxiosError) => {
-                // console.log('REQUEST ERROR');
-                // console.log(error);
+                 console.log('REQUEST ERROR');
+                console.log(error);
                 if (error.response && error.response.status === 401) {
                     // console.log('access denied');
                 }
@@ -83,8 +83,9 @@ class Api {
             // Do something with response data
             return response;
         }, async (error: any) => {
+            console.log(response.data.status)
             store.commit('stopLoading');
-            // console.log('RESPONSE ERROR');
+             console.log('RESPONSE ERROR');
             // console.log(error.response);
 
             if (error.response && error.response.status === 401) {
@@ -135,7 +136,7 @@ class Api {
                     }
                 }
             }
-            // return Promise.reject(error);
+         //return Promise.reject(error);
         });
     }
 

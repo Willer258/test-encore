@@ -31,8 +31,8 @@
                                 <b-form @submit="onSubmit" prevent="submit" class="d-flex flex-column ">
                                     <label class="sr-only" for="inline-form-input-name">Numero de telephone</label>
                                     <b-form-input v-model="loginData.username" type="tel" id="number"
-                                        class="mb-2 mr-sm-2 mb-sm-3" placeholder="Entrez votre numéro de téléphone"
-                                        required></b-form-input>
+                                        class="mb-2 mr-sm-2 mb-sm-3"
+                                        placeholder="Entrez votre numéro de téléphone" required></b-form-input>
 
                                     <label class="sr-only" for="inline-form-input-username">Mot de passe</label>
                                     <b-input-group class="mb-2 mr-sm-2 mb-sm-4">
@@ -40,7 +40,7 @@
                                             placeholder="Entrez votre mot de passe"></b-form-input>
                                     </b-input-group>
 
-                                    <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Se souvenir de moi</b-form-checkbox>
+                                    <!-- <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox> -->
 
                                     <b-button type="submit" style="align-self: end" variant="primary" class="w-50">
                                         <span>Connexion</span> </b-button>
@@ -56,6 +56,7 @@
 
 <script lang="ts">
 import { Vue } from "vue-class-component";
+import { api } from "@/services/Api";
 import { auth } from "@/services/Auth";
 
 //   @Options({
@@ -68,7 +69,7 @@ import { auth } from "@/services/Auth";
 
 
 
-export default class LoginPage extends Vue {
+export default class ActivationPage extends Vue {
 
     loginData = {
         username: '',
@@ -79,6 +80,7 @@ export default class LoginPage extends Vue {
         e.preventDefault()
         auth.login(this.loginData.username, this.loginData.password)
         console.log(this.loginData)
+
     }
 
 
