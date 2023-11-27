@@ -47,7 +47,7 @@ export default class ParrainageView extends Vue {
     { key: 'id', label: '' },
     { key: 'name', label: 'Nom' },
     { key: 'prename', label: 'Prénom' },
-    { key: 'primeGs', label: 'Status' },
+    { key: 'primeGs', label: 'Prime' },
   ]
   perPage = 10
   currentPage = 1
@@ -76,7 +76,7 @@ export default class ParrainageView extends Vue {
           this.solde += fileul.godfatherPremium
         }
         if (fileul.godsonPremium != null) {
-          data.primeGs = helper.currencyFormat(fileul.godsonPremium,true, true) 
+          data.primeGs = helper.currencyFormat(fileul.godfatherPremium,true, true) 
         } else {
           data.primeGs = 'En attente'
         }

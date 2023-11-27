@@ -28,10 +28,10 @@
                     <b-col md="6" class="d-flex justify-content-center">
                         <b-card-body title="Information">
                             <b-card-text>
-                                <div class="bold cursor-pointer mt-2 p-2" style="font-size:1.2em;border-top: 1px solid gainsboro;border-bottom:1px solid gainsboro ;">
+                                <div class="cursor-pointer mt-2 p-2" style="font-size:1.2em;">
                                     Renouveller un contrat
                                 </div>
-                                <div class="bold cursor-pointer mb-2 p-2" style="font-size:1.2em;border-top: 1px solid gainsboro;border-bottom:1px solid gainsboro ;">
+                                <div class="cursor-pointer mb-2 p-2" style="font-size:1.2em;">
                                     Résilier un contrat
                                 </div>
                             </b-card-text>

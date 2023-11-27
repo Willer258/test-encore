@@ -1,14 +1,13 @@
 <template>
   <b-container>
       <h2>Mes Contrats</h2>
-      <!-- <div class="d-flex w-100 justify-content-end ">
-          <div>
-              <b-button  variant="primary">
-              Creer une cotation
-          </b-button>
-          </div>
-          
-      </div> -->
+      <div class="d-flex w-100 justify-content-end ">
+        <div>
+          <b-dropdown id="dropdown-1" :text="filterText" class="m-md-2" variant="primary" v-model="selectedOption">
+            <b-dropdown-item  v-for="(item, index) in filterOptions" :key="index" @click="selectOption(item)" >{{item}}</b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div>
 
       <div class="mt-5 rounded-2 overflow-hidden d-flex flex-column  bg-white px-3 py-2">
         <b-table head-variant="light" :fields="fields" :current-page="currentPage" id="my-table"
@@ -69,6 +68,9 @@ import { CONTRACT_STATUS, helper } from '@/services/Helper';
 export default class ContractView extends Vue {
   contrats: any[] = [];
   categories: any[] = [];
+  filterOptions: any[] = ["Tous les contrats"];
+  filterText:any = "Tous les contrats";
+  selectedOption:any = ""
   transProps= {
   name: 'flip-list'
   }
@@ -86,7 +88,10 @@ export default class ContractView extends Vue {
     this.loadContracts();
     // console.log(this.categories);
   }
-
+  selectOption(item:any){
+    this.filtering(item)
+    console.log(item)
+  }
   rows() {
     return this.contrats.length
   }
@@ -97,6 +102,10 @@ export default class ContractView extends Vue {
       //console.log(res.data)
       if (res && res.data && res.data.contracts) {
         res.data.contracts.forEach((cont: any) => {
+          if (!this.filterOptions.includes(cont.branch.label)) {
+            this.filterOptions.push(cont.branch.label)
+          }
+          console.log(this.filterOptions )
             const data:any = {}
             data.photo = process.env.VUE_APP_MASTER_URL+"uploads/"+cont.branch.photo
             data.insurer = cont.insurer.label
@@ -128,28 +137,22 @@ export default class ContractView extends Vue {
     }
   }
 
-  // filtering(filter: any){
-  //   const status = filter.filter.status;
-  //   const branch = filter.filter.branch;
-  //   let results = [...this.contrats];
+  filtering(filter: any){
+    // const status = filter.filter.status;
+    // const branch = filter.filter.branch;
+    let results:any[] = [];
 
-  //   // console.log(results.length);
-  //   // console.log(filter);
-  //   if (status) {
-  //     results = results.filter((c) => {
-  //       return c.status === status;
-  //     });
-  //   }
-  //   if (branch) {
-  //     results = results.filter((c) => {
-  //       return c.branch.slug === branch;
-  //     });
-  //   }
-  //   // console.log(results.length);
-  //   results.forEach((f:any) => {
-  //     this.defaultFilter.push(f);
-  //   });
-  // };
+    if (filter && filter !== "Tous les contrats") {
+      results = results.filter((c) => {
+        return c.label === filter;
+      });
+    }
+    // console.log(results.length);
+    results.forEach((f:any) => {
+      this.contrats.push(f);
+    });
+    this.filterText = filter
+  };
 
 }
 </script>
