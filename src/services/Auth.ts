@@ -25,6 +25,7 @@ class Auth {
       "ROLE_INCOME",
     ],
   };
+  public platform = process.env.PLATFORM;
 
   async login(username: string, password: string) {
     try {
@@ -43,6 +44,7 @@ class Auth {
         localStorage.setItem("refreshToken", data.refreshToken);
         localStorage.setItem("userToken", data.token);
         localStorage.setItem("user", JSON.stringify(data.customer));
+
         router.push({ name: "dashboard" });
       }
     } catch (error) {

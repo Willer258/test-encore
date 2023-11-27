@@ -8,6 +8,7 @@ import ContractView from '@/views/Dashboard/ContractView.vue'
 import ParrainageView from '@/views/Dashboard/ParrainageView.vue'
 import DeadlineView from '@/views/Dashboard/DeadlineView.vue'
 import ProfilView from '@/views/Dashboard/ProfilView.vue'
+import ContractShowView from '@/views/Dashboard/ContractShowView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -46,6 +47,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'profil',
         component: ProfilView
       },
+      {
+        path: '/contract/show/:contractUuid',
+        name: 'contract-show',
+        component: ContractShowView,
+    },
     ],
     meta: {
       requiredRoles: ['ROLE_CUSTOMER']
