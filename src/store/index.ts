@@ -1,4 +1,5 @@
 import Tenant from "@/entity/Tenant";
+import { api } from "@/services/Api";
 import { createStore } from "vuex";
 
 const defaultTenant = new Tenant();
@@ -9,6 +10,7 @@ export default createStore({
   state: {
     isLoading: false,
     popups: [] as any,
+    branchCategories: [],
     user:
       localStorage.getItem("user") &&
       localStorage.getItem("user") !== "undefined" &&
@@ -24,8 +26,21 @@ export default createStore({
   },
   getters: {
     currentTenant: (state, getters) => () => {
-      return state.currentTenant
-  },
+        return state.currentTenant
+    },
+  //   branchCategories: (state, getters) => async () => {
+  //     if (state.branchCategories.length > 0) {
+  //         return state.branchCategories
+  //     }
+  //     const res = await api.get(api.core, 'branch/category/list');
+  //     if (res && res.data && res.data.categories) {
+  //         state.branchCategories = [];
+  //         res.data.categories.forEach((c: BranchCategory) => {
+  //             state.branchCategories.push(new BranchCategory(c))
+  //         })
+  //     }
+  //     return state.branchCategories
+  // },
   },
   mutations: {
     loading(state: any) {

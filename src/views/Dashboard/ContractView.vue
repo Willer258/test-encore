@@ -32,10 +32,11 @@
           </template> -->
           <template #cell(id)="data">
 
-            <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;" v-b-modal="'my-modal'" :id="data.id" >
-                <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/eyes.svg"
-                    alt="">
-            </b-button>
+            
+              <router-link :to="{ name: 'contract-show', params: { contractUuid: data.item.uuid } }"
+              class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;" :id="data.item.uuid">
+                <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/eyes.svg" alt="">
+              </router-link>
 
            
 
@@ -82,7 +83,7 @@ export default class ContractView extends Vue {
   
   mounted() {
     this.loadBranchCategories();
-    this.loadContract();
+    this.loadContracts();
     // console.log(this.categories);
   }
 
@@ -90,7 +91,7 @@ export default class ContractView extends Vue {
     return this.contrats.length
   }
 
-  async loadContract(){
+  async loadContracts(){
     try {
       const res = await api.get(api.core, "selfcare/contracts");
       //console.log(res.data)

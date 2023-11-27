@@ -11,7 +11,7 @@
                 </span>
             </router-link>
 
-            <b-button  :variant="'light'" :href="'https://wa.me/2250701363636'" class="mb-3 text-start">Mes Sinistres</b-button>
+            <a href="https://wa.me/2250701363636" target="_blank" rel="noopener noreferrer" class="btn btn-light text-start">Mes Sinistres</a>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-center mt-5 border-top p-3" style="height: 250px">
             <div class="bg-primary p-3" style="height: 80px; width: 80px; border-radius: 100% ; flex: none;">
@@ -19,8 +19,8 @@
                     alt="">
             </div>
             <div class="d-flex align-items-end mt-4">
-                <h4 v-if="user">{{user.prename}}</h4>
-                <h4 class="ms-2" v-if="user">{{user.name?.toUpperCase()}}</h4>
+                <h4 v-if="user" style="font-size: 120%;">{{user.prename}}</h4>
+                <h4 class="ms-2" v-if="user" style="font-size: 120%;">{{user.name?.toUpperCase()}}</h4>
             </div>
 
             <p v-if="user">
