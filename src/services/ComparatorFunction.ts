@@ -79,7 +79,8 @@ class ComparatorFunction {
                         question.response = response;
                         if (question.min) {
                             let missing = question.min;
-                            question.response.responseGroups.forEach((responseGroup:any) => {
+                            console.log(response)
+                            response.responseGroups.forEach((responseGroup:any) => {
                                 missing--;
                                 const result = this.getResponseGroupDetails(responseGroup, surveys);
                                 const index:any = survey.slug + "_" + responseGroup.uuid;
