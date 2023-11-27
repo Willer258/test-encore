@@ -48,10 +48,10 @@ const routes: Array<RouteRecordRaw> = [
         component: ProfilView
       },
       {
-        path: '/contract/show/:contractUuid',
+        path: 'contract/show/:id',
         name: 'contract-show',
         component: ContractShowView,
-    },
+      },
     ],
     meta: {
       requiredRoles: ['ROLE_CUSTOMER']
