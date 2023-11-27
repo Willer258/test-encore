@@ -65,13 +65,14 @@ export default class DeadlineView extends Vue {
       { key: 'photo', label: 'Contrat' },
       { key: 'insurer', label: 'Assureur' },
       { key: 'duration', label: 'Période' },
-      { key: 'status', label: 'Status' },
+      { key: 'expireAt', label: 'Expire' },
       { key: 'id', label: '' },
   ]
 
   mounted() {
     this.loadContract();
-    // console.log(this.categories);
+    // console.log(helper.getTimeLapse(this.contrats[0].expireAt));
+    // console.log(this.contrats);
   }
   
   rows() {
@@ -109,11 +110,12 @@ export default class DeadlineView extends Vue {
             data.duration = helper.readable(cont.startAt, 'dMy') +" - "+helper.readable(cont.expireAt, 'dMy')
             data.status = cont.status
             data.label = cont.branch.label
+            data.expireAt = helper.getTimeLapse(cont.expireAt)
             data.primeTTC = helper.currencyFormat(cont.primeTTC,true, true)
             data.id = cont.uuid
 
-          console.log(data)
-          console.log(cont)
+          // console.log(helper.getTimeLapse(data.expireAt))
+          // console.log(cont)
           this.contrats.push(data);
         })
       }

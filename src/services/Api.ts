@@ -29,7 +29,7 @@ class Api {
     public logoUrl = process.env.VUE_APP_MASTER_URL + 'images/logo.png'
     public refreshAttempt = 0
     public zone = 'wiassur'
-
+    public platform = 'app-mobile';
 
     constructor() {
         const headers = {

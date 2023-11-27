@@ -366,6 +366,74 @@ class Helper {
         }
         return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
     }
+    // getTimeLapse(
+    //     date:any = null,
+    //     now:any = null,
+    //     addPrefix:any = true,
+    //     format:any = "dmY",
+    //   ) {
+    //     if (typeof now === "string") {
+    //       try {
+    //         now = new Date(now);
+    //       } catch (e) {
+    //         throw new Error("Impossible de convertir " + now + " en date valide");
+    //       }
+    //     }
+    //     if (!now) {
+    //       now = new Date();
+    //     }
+    //     if (typeof date === "string") {
+    //       try {
+    //         date = new Date(date);
+    //       } catch (e) {
+    //         throw new Error("Impossible de convertir " + date + " en date valide");
+    //       }
+    //     }
+    //     if (!date) {
+    //       return "";
+    //     }
+    //     const diff = Math.abs(now.getTime() - date.getTime());
+    //     let text = "";
+    //     const timelapse = {
+    //       y: Math.floor(diff / 1000 / 60 / 60 / 24 / 30 / 12),
+    //       m: Math.floor(diff / 1000 / 60 / 60 / 24 / 30) % 12,
+    //       d: Math.floor(diff / 1000 / 60 / 60 / 24) % 30,
+    //       h: Math.floor(diff / 1000 / 60 / 60) % 24,
+    //       i: Math.floor(diff / 1000 / 60) % 60,
+    //       s: Math.floor(diff / 1000) % 60,
+    //     };
+    //     if (text.trim() === "" || (format && format.includes("y"))) {
+    //       text += timelapse.y > 0 ? timelapse.y + " an" : "";
+    //       text += timelapse.y > 1 ? "s" : "";
+    //     }
+    //     if (text.trim() === "" || (format && format.includes("m"))) {
+    //       text += timelapse.m > 0 ? " " + timelapse.m + " " + "mois" : "";
+    //     }
+    //     if (text.trim() === "" || (format && format.includes("d"))) {
+    //       text += timelapse.d > 0 ? " " + timelapse.d + " jour" : "";
+    //       text += timelapse.d > 1 ? "s" : "";
+    //     }
+    //     if (text.trim() === "" || (format && format.includes("h"))) {
+    //       text += timelapse.h > 0 ? " " + timelapse.h + " heure" : "";
+    //       text += timelapse.h > 1 ? "s" : "";
+    //     }
+    //     if (text.trim() === "" || (format && format.includes("i"))) {
+    //       text += timelapse.i > 0 ? " " + timelapse.i + " minute" : "";
+    //       text += timelapse.i > 1 ? "s" : "";
+    //     }
+    //     if (text.trim() === "" || (format && format.includes("s"))) {
+    //       text += timelapse.s > 0 ? " " + timelapse.s + " seconde" : "";
+    //       text += timelapse.s > 1 ? "s" : "";
+    //     }
+    //     // console.log(text);
+      
+    //     if (addPrefix) {
+    //       const prefix = now.getTime() - date.getTime() > 0 ? "Il y a " : "Dans ";
+    //       text = prefix.trim() + " " + text.trim();
+    //     }
+    //     // console.log(text);
+    //     return text;
+    //   }
 }
 
 export const helper = new Helper()
