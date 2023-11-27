@@ -18,10 +18,15 @@
                 </template>
 
                 <template #cell(id)="data">
-                    <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;" :id="data.id">
-                        <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/todo-line.svg"
-                            alt="">
-                    </b-button>
+                    <a :href="data.item.link" target="_blank" rel="noopener noreferrer" class="btn btn-info" >
+                        <img style="object-fit: contain; width: 50%; height: 50%;" src="../../assets/icons/todo-line.svg" alt="">
+                    </a>
+                    <!-- <router-link :to="data.item.link"
+                    class="mr-2 btn btn-info" style="height: 40px; width: 40px; padding: 5px;" >
+                        <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/todo-line.svg" alt="">
+                    </router-link> -->
+                    <!-- <b-button class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;" :id="data.id">
+                    </b-button> -->
                 </template>
 
             </b-table>
@@ -54,6 +59,7 @@ export default class CotationView extends Vue {
     categories: any[] = [];
     perPage = 10
     currentPage = 1
+    pathCotation:any = "https://comparer.wia.ci/questionnaire/"
 
     transProps = {
         // Transition name
@@ -115,11 +121,14 @@ export default class CotationView extends Vue {
                         }
                     }
                 }
+                const link = this.pathCotation+item.branchSlug+"/"+item.uuid
+                console.log(link)
                 return {
                         id: item.uuid,
                         photo: photo,
                         label: item.survey.label,
                         progress: progress,
+                        link: link,
                         derniere_modification: helper.readable(item.updatedAt),
                     }
                 })

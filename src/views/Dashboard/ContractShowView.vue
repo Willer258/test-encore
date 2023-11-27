@@ -1,17 +1,51 @@
 <template>
     <b-container>
-        <h2>Mes Contrats</h2>
-        <!-- <div class="d-flex w-100 justify-content-end ">
-            <div>
-                <b-button  variant="primary">
-                Creer une cotation
-            </b-button>
-            </div>
-            
-        </div> -->
+        <h2>Mon contrat</h2>
   
-        <div class="mt-5 rounded-2 overflow-hidden d-flex flex-column  bg-white px-3 py-2">
-   
+        <div class="mt-5 rounded-2 overflow-hidden d-flex flex-column  bg-white px-3 py-2" v-if="contract">
+            <b-card no-body class="overflow-hidden" style="" >
+                <b-row no-gutters>
+                    <b-col md="3" class="d-flex justify-content-center">
+                        <b-card-img :src="pathImg+contract.branch.photo" alt="Image" class="rounded-0 object-contain align-self-center" style="height: 50%; width: 50%;" ></b-card-img>
+                    </b-col>
+                    <b-col md="6">
+                        <b-card-body :title="'Contrat N° : '+contract.police">
+                            <b-card-text style="font-size: 1.2em;">
+                                <div class="mt-2">
+                                    <img :src="pathImg+contract.insurer.photo" alt="" style="width: 18%; height: 18%;" class="img-fluid">
+                                    <strong> {{ contract.insurer.label }}</strong>
+                                </div>
+                                <div class="mt-2">Type contrat : <strong>{{ contract.branch.label }}  {{ contract.type }}</strong></div>
+                                <div class="mt-2">Valide jusqu'au <strong>{{ expireAt }}</strong></div>
+                                <div class="mt-2">Status : <strong>{{ status }}</strong></div>
+                            </b-card-text>
+                        </b-card-body>
+                    </b-col>
+                </b-row>
+            </b-card>
+            <b-card no-body class="overflow-hidden mt-3" style="" >
+                <b-row no-gutters>
+                    <b-col md="6" class="d-flex justify-content-center">
+                        <b-card-body title="Information">
+                            <b-card-text>
+                                <div class="bold cursor-pointer mt-2 p-2" style="font-size:1.2em;border-top: 1px solid gainsboro;border-bottom:1px solid gainsboro ;">
+                                    Renouveller un contrat
+                                </div>
+                                <div class="bold cursor-pointer mb-2 p-2" style="font-size:1.2em;border-top: 1px solid gainsboro;border-bottom:1px solid gainsboro ;">
+                                    Résilier un contrat
+                                </div>
+                            </b-card-text>
+                        </b-card-body>                    
+                    </b-col>
+                    <b-col md="6">
+                        <b-card-body title="Document">
+                            <b-card-text>
+                                
+                            </b-card-text>
+                        </b-card-body>
+                    </b-col>
+                </b-row>
+            </b-card>
         </div>
     </b-container>
   </template>
@@ -28,18 +62,62 @@ import { CONTRACT_STATUS, helper } from '@/services/Helper';
   
 })
   export default class ContractShowView extends Vue {
+    contract:any = '';
     amount = 0
     coreEndpoint = api.core
     uploadRoot = api.uploadRoot
     tabIndex = 0
     isLoading = false
     avenant: any = null
+    pathImg = process.env.VUE_APP_MASTER_URL+"uploads/"
+    expireAt:any =""
+    status:any =""
   
     async mounted() {
     //   this.loadEngine()
-    //   await this.loadContract()
+      await this.loadContract()
+      this.expireAt = helper.readable(this.contract.expireAt, "dmY") 
+      this.getContractStatus(this.contract.status)
+      console.log(this.contract)
     }
-  
+    
+    getContractStatus(status:string){
+        if (!status) {
+            return
+        }
+        switch (status) {
+            case CONTRACT_STATUS.ONGOING:
+                this.status = "EN COURS"
+                break;
+            case CONTRACT_STATUS.TERMINATED:
+                this.status = "EXPIRE"
+                break;
+                
+            default:
+                this.status = status
+                break;
+        }
+    }
+
+    async loadContract() {
+    //   this.isLoading = true
+      const res = await api.get(api.core, 'contract/get/data/' + this.$route.params.id)
+      if (res && res.data && res.data.contract) {
+        // console.log(res.data.contract.avenants[0].root.properties[0].children[0].properties[19].children[0].properties)
+        this.contract = res.data.contract
+        // this.contract.avenants.reverse()
+      }
+    //   if (this.contract.status === CONSTANTS.CONTRACT_STATUS['QUOTATION']) {
+    //     this.tabIndex = 0
+    //   }
+    //   if (this.contract.status === CONSTANTS.CONTRACT_STATUS['ONGOING']) {
+    //     this.tabIndex = 1
+    //   }
+    //   this.isLoading = false
+      // console.log(this.contract)
+      // console.log(this.contract.avenants[0].root.properties[0].children[0].properties[1].children[0].properties[6].children[0])
+      // console.log(this.contract.avenants[0].root.properties[0].children[0].properties[19].children[0].properties[0].model.link)
+    }
   
     // get willExpireSoon() {
     //   if (this.contract instanceof Contract) {
@@ -189,26 +267,7 @@ import { CONTRACT_STATUS, helper } from '@/services/Helper';
     //   }
     //   this.$store.commit('stopLoading')
     // }
-  
-    // async loadContract() {
-    //   this.isLoading = true
-    //   const res = await api.get(api.core, 'contract/get/data/' + this.$route.params.contractUuid)
-    //   if (res && res.data && res.data.contract) {
-    //     // console.log(res.data.contract.avenants[0].root.properties[0].children[0].properties[19].children[0].properties)
-    //     this.contract = new Contract(res.data.contract)
-    //     this.contract.avenants.reverse()
-    //   }
-    //   if (this.contract.status === CONSTANTS.CONTRACT_STATUS['QUOTATION']) {
-    //     this.tabIndex = 0
-    //   }
-    //   if (this.contract.status === CONSTANTS.CONTRACT_STATUS['ONGOING']) {
-    //     this.tabIndex = 1
-    //   }
-    //   this.isLoading = false
-    //   // console.log(this.contract)
-    //   // console.log(this.contract.avenants[0].root.properties[0].children[0].properties[1].children[0].properties[6].children[0])
-    //   // console.log(this.contract.avenants[0].root.properties[0].children[0].properties[19].children[0].properties[0].model.link)
-    // }
+
   
     // async loadEngine() {
     //   const module_path = api.core + 'engine/Auto/Engine.js';

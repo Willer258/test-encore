@@ -31,13 +31,13 @@
             </div>
           </template> -->
           <template #cell(id)="data">
-
             
-              <router-link :to="{ name: 'contract-show', params: { contractUuid: data.item.uuid } }"
-              class="mr-2" variant="info" style="height: 40px; width: 40px; padding: 5px;" :id="data.item.uuid">
+              <router-link :to="'dashboard/contract/show/'+data.item.id"
+              class="mr-2 btn btn-info" style="height: 40px; width: 40px; padding: 5px;" :id="data.item.uuid">
                 <img style="object-fit: contain; width: 100%; height: 100%;" src="../../assets/icons/eyes.svg" alt="">
+                <!-- {{ data.item }} -->
               </router-link>
-
+<!-- {{ data.item.id }} -->
            
 
             <!-- <b-button class="ms-3" variant="danger" style="height: 40px; width: 40px; padding: 5px;"> 
