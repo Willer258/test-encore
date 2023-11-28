@@ -1,0 +1,75 @@
+name: deploy
+
+# on: [push]
+on:                                  
+  push:
+    tags:
+      - dev-*   
+      - stg-*                         
+      - prod-*
+
+
+jobs:
+# runs-on: 
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: self-hosted
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Cache node modules
+      id: cache-nodemodules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        # caching node_modules
+        path: node_modules
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '12.x'
+
+    # Deploy the Docker image to the GKE cluster
+    - name: Deploy
+      run: |
+        export ENV=production
+        if echo "$GITHUB_REF_NAME" | grep -q "^dev-.*";  then export ENV=development; fi
+        if echo "$GITHUB_REF_NAME" | grep -q "^stg-.*";  then export ENV=staging; fi
+        if echo "$GITHUB_REF_NAME" | grep -q "^prod-.*"; then export ENV=production; fi
+        export APP_NAME=${GITHUB_REPOSITORY#*/}
+        
+        echo "APP_NAME=${APP_NAME}" >> $GITHUB_ENV
+        echo "ENV=${ENV}" >> $GITHUB_ENV
+        echo "SSH_HOST=aws.wiassur.com" >> $GITHUB_ENV
+        echo "SSH_USER=deploy" >> $GITHUB_ENV
+
+    - run: npm install
+    - run:  |
+        set -a
+        source .env
+        set +a
+        npm run build 
+    - run: cd dist && tar -acf ../${{ env.APP_NAME }}-${{ env.ENV }}.tar.gz .
+    
+    - name: deploy file
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      with:
+          username: '${{ env.SSH_USER }}'
+          server: '${{ env.SSH_HOST }}'
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
+          local_path: "./${{ env.APP_NAME }}-${{ env.ENV }}.tar.gz"
+          remote_path: '/tmp'
+          sftpArgs: '-o ConnectTimeout=5'
+
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.SSH_HOST }}
+        username: ${{ env.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: sudo /usr/local/sbin/apache-app-deploy -n ${{ env.APP_NAME }}-${{ env.ENV }} -f /tmp/${{ env.APP_NAME }}-${{ env.ENV }}.tar.gz
