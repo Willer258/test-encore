@@ -3,10 +3,10 @@ name: deploy
 # on: [push]
 on:                                  
   push:
-    # tags:
-    #   - dev-*   
-    #   - stg-*                         
-    #   - prod-*
+    tags:
+      - dev-*   
+      - stg-*                         
+      - prod-*
 
 
 jobs:
