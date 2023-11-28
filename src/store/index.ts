@@ -10,7 +10,7 @@ export default createStore({
   state: {
     isLoading: false,
     popups: [] as any,
-    branchCategories: [],
+    branchCategories:[] as any,
     user:
       localStorage.getItem("user") &&
       localStorage.getItem("user") !== "undefined" &&
@@ -28,19 +28,19 @@ export default createStore({
     currentTenant: (state, getters) => () => {
         return state.currentTenant
     },
-  //   branchCategories: (state, getters) => async () => {
-  //     if (state.branchCategories.length > 0) {
-  //         return state.branchCategories
-  //     }
-  //     const res = await api.get(api.core, 'branch/category/list');
-  //     if (res && res.data && res.data.categories) {
-  //         state.branchCategories = [];
-  //         res.data.categories.forEach((c: BranchCategory) => {
-  //             state.branchCategories.push(new BranchCategory(c))
-  //         })
-  //     }
-  //     return state.branchCategories
-  // },
+    branchCategories: (state, getters) => async () => {
+      if (state.branchCategories.length > 0) {
+          return state.branchCategories
+      }
+      const res = await api.get(api.core, 'branch/category/list');
+      if (res && res.data && res.data.categories) {
+          state.branchCategories = [];
+          res.data.categories.forEach((c: any) => {
+              state.branchCategories.push(c)
+          })
+      }
+      return state.branchCategories
+  },
   },
   mutations: {
     loading(state: any) {

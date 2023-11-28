@@ -30,9 +30,6 @@
                 </template>
 
             </b-table>
-
-
-
             <b-pagination class="align-self-end mt-3" v-model="currentPage" :total-rows="rows()" :per-page="perPage"
                 aria-controls="my-table"></b-pagination>
         </div>
@@ -73,15 +70,15 @@ export default class CotationView extends Vue {
         // { key: 'type_de_cotation', label: 'Cotations' },
         // { key: 'status', label: 'Status' },
         { key: 'derniere_modification', label: 'Derniere modification' },
-        { key: 'progress', label: 'Progression' },
+        // { key: 'progress', label: 'Progression' },
         { key: 'id', label: '' },
 
     ]
 
-    mounted() {
-        this.loadCotation();
-        this.loadBranchCategories();
-        this.loadSurveys()
+    async mounted() {
+        await this.loadBranchCategories();
+        await this.loadSurveys()
+        await this.loadCotation();
         // console.log(this.categories);
     }
 
@@ -91,8 +88,9 @@ export default class CotationView extends Vue {
         //console.log(res.data)
         if (res && res.data && res.data.categories) {
             res.data.categories.forEach((cat: any) => {
-            this.categories.push(cat);
+                this.categories.push(cat);
             })
+            localStorage.setItem("categories", JSON.stringify(this.categories))
         }
         } catch (e) {
         console.log(e);
@@ -111,9 +109,10 @@ export default class CotationView extends Vue {
             // console.log(res.data.responseGroups);
             // console.log(comparatorFunction.getRgState(res.data.responseGroups[0], this.surveys));
             const dataFiltered = res.data.responseGroups.map((item: any) =>{
-                console.log(item)
-                const progress = comparatorFunction.getRgState(item, this.surveys)+"%"
+                // console.log(item)
+                // const progress = comparatorFunction.getRgState(item, this.surveys)+"%"
                 let photo = process.env.VUE_APP_MASTER_URL+"uploads/";
+                // console.log(this.categories[0].branches)
                 for (let cat of this.categories) {
                     for (let branch of cat.branches) {
                         if (branch.slug === item.branchSlug) {
@@ -122,12 +121,12 @@ export default class CotationView extends Vue {
                     }
                 }
                 const link = this.pathCotation+item.branchSlug+"/"+item.uuid
-                console.log(link)
+                // console.log(link)
                 return {
                         id: item.uuid,
                         photo: photo,
                         label: item.survey.label,
-                        progress: progress,
+                        // progress: progress,
                         link: link,
                         derniere_modification: helper.readable(item.updatedAt),
                     }

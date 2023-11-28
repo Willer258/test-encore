@@ -1,18 +1,17 @@
 <template>
   <b-container>
       <h2>Mes Contrats</h2>
-      <!-- <div class="d-flex w-100 justify-content-end ">
-          <div>
-              <b-button  variant="primary">
-              Creer une cotation
-          </b-button>
-          </div>
-          
-      </div> -->
+      <div class="d-flex w-100 justify-content-end ">
+        <div>
+          <b-dropdown id="dropdown-1" :text="filterText" class="m-md-2" variant="primary" v-model="selectedOption">
+            <b-dropdown-item  v-for="(item, index) in filterOptions" :key="index" @click="selectOption(item)" >{{item.label}}</b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div>
 
       <div class="mt-5 rounded-2 overflow-hidden d-flex flex-column  bg-white px-3 py-2">
         <b-table head-variant="light" :fields="fields" :current-page="currentPage" id="my-table"
-            :tbody-transition-props="transProps"  sticky-header hover :items="contrats">
+            :tbody-transition-props="transProps"  sticky-header hover :items="dataFiltered">
             
             <template #cell(photo)="data" >
                 <img :src="data.item.photo" alt="" style="width: 13%; height: 13%;" class="img-fluid">
@@ -69,6 +68,12 @@ import { CONTRACT_STATUS, helper } from '@/services/Helper';
 export default class ContractView extends Vue {
   contrats: any[] = [];
   categories: any[] = [];
+  dataFiltered: any[] = [];
+  filterOptions: any[] = [
+    {label:"Tous les contrats", data: "all"}
+  ];
+  filterText:any = "Tous les contrats";
+  selectedOption:any = ""
   transProps= {
   name: 'flip-list'
   }
@@ -80,13 +85,66 @@ export default class ContractView extends Vue {
   ]
   perPage = 10
   currentPage = 1
-  
+
+  // items:any[] = [
+  //   {
+  //     photo:"https://master.wia.ci/uploads/63a8186c-c6ba-4c97-ab82-1a75ae5d7d98.svg",
+  //     insurer:"ATLANTA",
+  //     duration:"20 Sept 23 - 19 Déc 23",
+  //     status:"",
+  //     label:"Auto",
+  //     id:"1ee57e2e-e5d1-6b8c-8219-00505646c51f",
+  //   },
+  //   {
+  //     photo:"https://master.wia.ci/uploads/6eeed4f3-d2f7-4569-b180-4ae408c189bb.svg",
+  //     insurer:"ATLANTA",
+  //     duration:"20 Sept 23 - 19 Déc 23",
+  //     status:"",
+  //     label:"Voyage",
+  //     id:"1ee57e2e-e5d1-6b8c-8219-00505646c51f",
+  //   },
+  //   {
+  //     photo:"https://master.wia.ci/uploads/63a8186c-c6ba-4c97-ab82-1a75ae5d7d98.svg",
+  //     insurer:"ATLANTA",
+  //     duration:"20 Sept 23 - 19 Déc 23",
+  //     status:"",
+  //     label:"Auto",
+  //     id:"1ee57e2e-e5d1-6b8c-8219-00505646c51f",
+  //   },
+  //   {
+  //     photo:"https://master.wia.ci/uploads/6eeed4f3-d2f7-4569-b180-4ae408c189bb.svg",
+  //     insurer:"ATLANTA",
+  //     duration:"20 Sept 23 - 19 Déc 23",
+  //     status:"",
+  //     label:"Voyage",
+  //     id:"1ee57e2e-e5d1-6b8c-8219-00505646c51f",
+  //   },
+  //   {
+  //     photo:"https://master.wia.ci/uploads/63a8186c-c6ba-4c97-ab82-1a75ae5d7d98.svg",
+  //     insurer:"ATLANTA",
+  //     duration:"20 Sept 23 - 19 Déc 23",
+  //     status:"",
+  //     label:"Auto",
+  //     id:"1ee57e2e-e5d1-6b8c-8219-00505646c51f",
+  //   },
+  //   {
+  //     photo:"https://master.wia.ci/uploads/6eeed4f3-d2f7-4569-b180-4ae408c189bb.svg",
+  //     insurer:"ATLANTA",
+  //     duration:"20 Sept 23 - 19 Déc 23",
+  //     status:"",
+  //     label:"Voyage",
+  //     id:"1ee57e2e-e5d1-6b8c-8219-00505646c51f",
+  //   },
+  // ];
+
   mounted() {
     this.loadBranchCategories();
     this.loadContracts();
-    // console.log(this.categories);
+    this.dataFiltered = this.contrats
   }
-
+  selectOption(item:any){
+    this.filtering(item)
+  }
   rows() {
     return this.contrats.length
   }
@@ -96,14 +154,21 @@ export default class ContractView extends Vue {
       const res = await api.get(api.core, "selfcare/contracts");
       //console.log(res.data)
       if (res && res.data && res.data.contracts) {
+        let branch:any = []
         res.data.contracts.forEach((cont: any) => {
-            const data:any = {}
-            data.photo = process.env.VUE_APP_MASTER_URL+"uploads/"+cont.branch.photo
-            data.insurer = cont.insurer.label
-            data.duration = helper.readable(cont.startAt, 'dMy') +" - "+helper.readable(cont.expireAt, 'dMy')
-            data.status = cont.status
-            data.label = cont.branch.label
-            data.id = cont.uuid
+          console.log(cont)
+          if (!branch.includes(cont.branch.label)) {
+            this.filterOptions.push({label:cont.branch.label, data:(cont.branch.label).toLowerCase()})
+            branch.push(cont.branch.label)
+          }
+          // console.log(this.filterOptions)
+          const data:any = {}
+          data.photo = process.env.VUE_APP_MASTER_URL+"uploads/"+cont.branch.photo
+          data.insurer = cont.insurer.label
+          data.duration = helper.readable(cont.startAt, 'dMy') +" - "+helper.readable(cont.expireAt, 'dMy')
+          data.status = cont.status
+          data.label = cont.branch.label
+          data.id = cont.uuid
 
           // console.log(data)
           // console.log(cont)
@@ -128,28 +193,25 @@ export default class ContractView extends Vue {
     }
   }
 
-  // filtering(filter: any){
-  //   const status = filter.filter.status;
-  //   const branch = filter.filter.branch;
-  //   let results = [...this.contrats];
+  filtering(filter: any){
+    let results:any[] = [...this.dataFiltered];
+    if (filter) {
+      results = results.filter((c) => {
+        return c.label === filter.label;
+      });
+    }
 
-  //   // console.log(results.length);
-  //   // console.log(filter);
-  //   if (status) {
-  //     results = results.filter((c) => {
-  //       return c.status === status;
-  //     });
-  //   }
-  //   if (branch) {
-  //     results = results.filter((c) => {
-  //       return c.branch.slug === branch;
-  //     });
-  //   }
-  //   // console.log(results.length);
-  //   results.forEach((f:any) => {
-  //     this.defaultFilter.push(f);
-  //   });
-  // };
+    if (results.length <= 0) {
+      this.dataFiltered = this.contrats
+    } else {
+      this.dataFiltered = []
+      results.forEach((f:any) => {
+        this.dataFiltered.push(f);
+      });
+    }
+    this.filterText = filter.label
+    results = []
+  };
 
 }
 </script>
